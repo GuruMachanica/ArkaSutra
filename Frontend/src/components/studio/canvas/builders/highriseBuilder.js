@@ -11,15 +11,18 @@ export function buildHighrise(group, materials, panelTilt, solarPanelsRef) {
   ];
 
   towers.forEach((t) => {
+    const towerData = { isRoof: true, buildingName: `Metropolitan Tower (${t.w}x${t.d}m)`, solar: { area_m2: t.w * t.d, pv_capacity_kwp: Math.round(t.w * t.d * 0.16), annual_generation_kwh: Math.round(t.w * t.d * 240), annual_savings_usd: Math.round(t.w * t.d * 38), co2_offset_tons: Number((t.w * t.d * 0.09).toFixed(1)) } };
     const tower = new THREE.Mesh(new THREE.BoxGeometry(t.w, t.h, t.d), getBuildingMat(t.col, 0.3, 0.6));
     tower.position.set(t.x, t.h / 2, t.z);
     tower.castShadow = true;
     tower.receiveShadow = true;
+    tower.userData = towerData;
     group.add(tower);
 
     // Glass curtain outer skin
     const glass = new THREE.Mesh(new THREE.BoxGeometry(t.w + 0.2, t.h - 4, t.d + 0.2), glassCurtainMat);
     glass.position.set(t.x, t.h / 2, t.z);
+    glass.userData = towerData;
     group.add(glass);
 
     // Communications spire / Helipad

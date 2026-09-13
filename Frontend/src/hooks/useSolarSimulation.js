@@ -10,14 +10,25 @@ export function useSolarSimulation() {
   const [meshStats, setMeshStats] = useState({ totalRooftopArea: 210.0, panelsCount: 120 });
 
   const { elevation, azimuth, baseIrradiance } = useMemo(() => {
-    const maxElev = season === 'summer' ? 72 : season === 'equinox' ? 50 : 28;
-    const hourDelta = timeOfDay - 12.0;
-    const rawElev = Math.max(0, maxElev * Math.cos((hourDelta / 6.5) * (Math.PI / 2)));
-    const rawAzim = 180 + (hourDelta / 6.5) * 85;
-    const rad = (rawElev * Math.PI) / 180;
-    const baseIrr = Math.round(1000 * Math.sin(rad));
+    const phi = (35.68 * Math.PI) / 180; // Standard mid-latitude reference (Tokyo / 35.7° N)
+    const deltaDeg = season === 'summer' ? 23.45 : season === 'equinox' ? 0.0 : -23.45;
+    const delta = (deltaDeg * Math.PI) / 180;
+    const H = ((timeOfDay - 12.0) * 15 * Math.PI) / 180;
 
-    return { elevation: rawElev, azimuth: rawAzim, baseIrradiance: Math.max(0, baseIrr) };
+    const sinElev = Math.sin(phi) * Math.sin(delta) + Math.cos(phi) * Math.cos(delta) * Math.cos(H);
+    const elevRad = Math.asin(Math.max(-1, Math.min(1, sinElev)));
+    const elevDeg = Math.max(0, (elevRad * 180) / Math.PI);
+
+    let azimDeg = 180;
+    if (elevDeg > 0.01) {
+      const y = -Math.cos(delta) * Math.sin(H);
+      const x = Math.sin(delta) * Math.cos(phi) - Math.cos(delta) * Math.sin(phi) * Math.cos(H);
+      azimDeg = (Math.atan2(y, x) * 180) / Math.PI;
+      if (azimDeg < 0) azimDeg += 360;
+    }
+
+    const baseIrr = elevDeg > 0 ? Math.round(1050 * Math.sin(elevRad)) : 0;
+    return { elevation: elevDeg, azimuth: azimDeg, baseIrradiance: baseIrr };
   }, [timeOfDay, season]);
 
   return {

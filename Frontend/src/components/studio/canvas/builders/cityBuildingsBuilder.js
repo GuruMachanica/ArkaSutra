@@ -10,8 +10,9 @@ export function buildCityBuildings(group, cityBuildings, materials, solarPanelsR
     const height = Math.max(8, bldg.height || 16);
     const shape = new THREE.Shape();
     pts.forEach((pt, idx) => {
-      if (idx === 0) shape.moveTo(pt[0], pt[1]);
-      else shape.lineTo(pt[0], pt[1]);
+      // (pt[0], -pt[1]) ensures rotateX(-Math.PI / 2) maps correctly to +z in world space
+      if (idx === 0) shape.moveTo(pt[0], -pt[1]);
+      else shape.lineTo(pt[0], -pt[1]);
     });
 
     // Extrude vertically into +Y by rotating -90 deg around X
@@ -25,18 +26,18 @@ export function buildCityBuildings(group, cityBuildings, materials, solarPanelsR
     const buildingMesh = new THREE.Mesh(geom, facadeMat);
     buildingMesh.castShadow = true;
     buildingMesh.receiveShadow = true;
+    buildingMesh.userData = { isRoof: true, isBuilding: true, buildingName: bldg.name, osmId: bldg.osm_id, solar: bldg.solar };
     group.add(buildingMesh);
 
     // Interactive 3D Rooftop cap
     const roofGeom = new THREE.ShapeGeometry(shape);
     roofGeom.rotateX(-Math.PI / 2);
-    const roofMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.2, metalness: 0.85 });
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.2, metalness: 0.85, side: THREE.DoubleSide });
     const roofMesh = new THREE.Mesh(roofGeom, roofMat);
-    roofMesh.position.set(0, height + 0.1, 0);
+    roofMesh.position.set(0, height + 0.15, 0);
     roofMesh.castShadow = true;
     roofMesh.receiveShadow = true;
-
-    roofMesh.userData = { isRoof: true, buildingName: bldg.name, osmId: bldg.osm_id, solar: bldg.solar };
+    roofMesh.userData = { isRoof: true, isBuilding: true, buildingName: bldg.name, osmId: bldg.osm_id, solar: bldg.solar };
     group.add(roofMesh);
 
     // Add angled Photovoltaic modules on the roof
@@ -53,6 +54,7 @@ export function buildCityBuildings(group, cityBuildings, materials, solarPanelsR
         pvMesh.position.set(px, height + 0.35, pz);
         pvMesh.rotation.x = THREE.MathUtils.degToRad(25); // 25 deg tilt toward South
         pvMesh.castShadow = true;
+        pvMesh.userData = { isRoof: true, isBuilding: true, buildingName: bldg.name, osmId: bldg.osm_id, solar: bldg.solar };
         group.add(pvMesh);
       }
     }

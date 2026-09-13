@@ -12,36 +12,46 @@ export function useRoofRaycaster({ mountRef, cameraRef, modelsGroupRef, onSelect
 
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
+    let downPos = { x: 0, y: 0 };
 
-    const handleClick = (e) => {
-      // Only handle left clicks without drags
+    const onPointerDown = (e) => {
+      if (e.button === 0) downPos = { x: e.clientX, y: e.clientY };
+    };
+
+    const onPointerUp = (e) => {
       if (e.button !== 0) return;
+      const dist = Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y);
+      if (dist > 6) return; // Disregard camera drag rotations
+
       const rect = mount.getBoundingClientRect();
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(group.children, true);
-      const roofHit = intersects.find((hit) => hit.object.userData?.isRoof);
+      const hit = intersects.find((h) => h.object.userData?.solar || h.object.userData?.isRoof);
 
-      if (roofHit) {
-        if (selectedMeshRef.current && selectedMeshRef.current.material) {
-          selectedMeshRef.current.material.emissive?.setHex(0x000000);
+      if (hit) {
+        if (selectedMeshRef.current?.material?.emissive) {
+          selectedMeshRef.current.material.emissive.setHex(0x000000);
         }
-        selectedMeshRef.current = roofHit.object;
-        if (roofHit.object.material?.emissive) {
-          roofHit.object.material.emissive.setHex(0x38bdf8); // Glowing cyan accent
+        selectedMeshRef.current = hit.object;
+        if (hit.object.material?.emissive) {
+          hit.object.material.emissive.setHex(0x38bdf8);
         }
+        const data = hit.object.userData.solar || hit.object.userData;
         onSelectRoof({
-          ...roofHit.object.userData.solar,
-          buildingName: roofHit.object.userData.buildingName
+          ...data,
+          buildingName: hit.object.userData.buildingName || data.name || "Building Solar Array"
         });
       }
     };
 
-    mount.addEventListener("click", handleClick);
+    mount.addEventListener("pointerdown", onPointerDown);
+    mount.addEventListener("pointerup", onPointerUp);
     return () => {
-      mount.removeEventListener("click", handleClick);
+      mount.removeEventListener("pointerdown", onPointerDown);
+      mount.removeEventListener("pointerup", onPointerUp);
       if (selectedMeshRef.current?.material?.emissive) {
         selectedMeshRef.current.material.emissive.setHex(0x000000);
       }

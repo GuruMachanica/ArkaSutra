@@ -7,16 +7,19 @@ export function buildCommercial(group, materials, panelTilt, solarPanelsRef) {
   mainHq.position.set(-6, 8, -4);
   mainHq.castShadow = true;
   mainHq.receiveShadow = true;
+  mainHq.userData = { isRoof: true, buildingName: "Commercial HQ Tower", solar: { area_m2: 672, pv_capacity_kwp: 96, annual_generation_kwh: 128400, annual_savings_usd: 20544, co2_offset_tons: 49.5 } };
   group.add(mainHq);
 
   const glassFacade = new THREE.Mesh(new THREE.BoxGeometry(28.2, 12, 1.2), glassCurtainMat);
   glassFacade.position.set(-6, 8, 7.6);
+  glassFacade.userData = mainHq.userData;
   group.add(glassFacade);
 
   const warehouse = new THREE.Mesh(new THREE.BoxGeometry(32, 8, 20), getBuildingMat(0x334155, 0.7, 0.2));
   warehouse.position.set(28, 4, -4);
   warehouse.castShadow = true;
   warehouse.receiveShadow = true;
+  warehouse.userData = { isRoof: true, buildingName: "Logistics Warehouse", solar: { area_m2: 640, pv_capacity_kwp: 88, annual_generation_kwh: 118000, annual_savings_usd: 18880, co2_offset_tons: 45.5 } };
   group.add(warehouse);
 
   // Solar arrays on warehouse flat roof

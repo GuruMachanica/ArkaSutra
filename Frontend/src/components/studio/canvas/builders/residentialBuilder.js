@@ -9,10 +9,12 @@ export function buildResidential(group, materials, panelTilt, solarPanelsRef) {
   ];
 
   villaCoords.forEach(([vx, vz], idx) => {
+    const villaData = { isRoof: true, buildingName: `Residential Villa ${idx + 1}`, solar: { area_m2: 120, pv_capacity_kwp: 7.2, annual_generation_kwh: 9800, annual_savings_usd: 1568, co2_offset_tons: 3.8 } };
     const bldg = new THREE.Mesh(new THREE.BoxGeometry(10, 5, 8), getBuildingMat(0xe2e8f0, 0.7, 0.1));
     bldg.position.set(vx, 2.5, vz);
     bldg.castShadow = true;
     bldg.receiveShadow = true;
+    bldg.userData = villaData;
     group.add(bldg);
 
     // Gabled roof
@@ -20,6 +22,7 @@ export function buildResidential(group, materials, panelTilt, solarPanelsRef) {
     roof.position.set(vx, 6.6, vz);
     roof.rotation.y = Math.PI / 4;
     roof.castShadow = true;
+    roof.userData = villaData;
     group.add(roof);
 
     // Chimney
