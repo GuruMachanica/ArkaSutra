@@ -27,7 +27,7 @@ export function useProceduralWorld({ modelsGroupRef, scenePreset, shadingMode, p
     }
 
     if (scenePreset === "city" && cityBuildings && cityBuildings.length > 0) {
-      buildCityBuildings(group, cityBuildings, materials, solarPanelsRef);
+      buildCityBuildings(group, cityBuildings, materials, solarPanelsRef, shadingMode);
       const totalArea = cityBuildings.reduce((sum, b) => sum + (b.roof_area_m2 || 0), 0);
       const totalKwp = cityBuildings.reduce((sum, b) => sum + (b.solar?.pv_capacity_kwp || 0), 0);
       if (onMeshStatsUpdate) onMeshStatsUpdate({ totalRooftopArea: Math.round(totalArea), panelsCount: Math.round(totalKwp * 2.5), systemCapacityKwp: Math.round(totalKwp) });

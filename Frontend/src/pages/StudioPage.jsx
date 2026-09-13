@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SolarCanvas3D from "../components/studio/SolarCanvas3D";
 import SolarControls from "../components/studio/SolarControls";
 import AnalyticsPanel from "../components/studio/AnalyticsPanel";
@@ -13,7 +13,8 @@ export default function StudioPage(props) {
   const {
     timeOfDay, setTimeOfDay, season, setSeason, scenePreset, setScenePreset,
     shadingMode, setShadingMode, elevation, azimuth, baseIrradiance, meshStats,
-    setMeshStats, onBackToHome, isPlaying, setIsPlaying, panelTilt, setPanelTilt
+    setMeshStats, onBackToHome, isPlaying, setIsPlaying, panelTilt, setPanelTilt,
+    setLatitude
   } = props;
 
   const canvasRef = useRef(null);
@@ -23,6 +24,10 @@ export default function StudioPage(props) {
 
   const { activeLocation, setActiveLocation, satelliteData, isLoadingSatellite } = useSatelliteSync(scenePreset);
   const { cityData } = useCityMapLoader(activeLocation);
+
+  useEffect(() => {
+    if (activeLocation?.lat && setLatitude) setLatitude(activeLocation.lat);
+  }, [activeLocation?.lat, setLatitude]);
   const currentTopology = topologiesData.topologies[scenePreset] || topologiesData.topologies.commercial;
 
   const handleCamPresetChange = (pId) => {

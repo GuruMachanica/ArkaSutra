@@ -11,8 +11,9 @@ export default function AnalyticsPanel({
 }) {
   const isNight = elevation <= 0;
   const satCurrent = satelliteData?.current;
-  const currentIrradiance = isNight ? 0 : (satCurrent?.ghi_w_m2 !== undefined ? satCurrent.ghi_w_m2 : irradiance);
   const cloudDerate = satCurrent?.cloud_derate_factor ?? 1.0;
+  const effectiveIrr = (satCurrent?.ghi_w_m2 && satCurrent.ghi_w_m2 > 0) ? satCurrent.ghi_w_m2 : Math.round(irradiance * cloudDerate);
+  const currentIrradiance = isNight ? 0 : effectiveIrr;
   const kwCapacity = stats.systemCapacityKwp || (stats.panelsCount ? (stats.panelsCount * 0.4).toFixed(1) : 72.0);
   const rawAnnual = stats.annualGenerationKwh || Math.round((stats.totalRooftopArea || 210) * 1850 * 0.20 * 0.82);
   const annualKwh = Math.round(rawAnnual * (satCurrent ? cloudDerate : 1.0));
