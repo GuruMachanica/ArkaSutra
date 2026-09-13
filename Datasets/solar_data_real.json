@@ -1,0 +1,143 @@
+{
+  "buildings": [
+    {
+      "id": "building_001",
+      "position": {
+        "x": 6.0,
+        "y": 16.0,
+        "z": 8.0
+      },
+      "dimensions": {
+        "width": 20.0,
+        "height": 5.0,
+        "depth": 20.0
+      },
+      "roofSurfaces": [
+        {
+          "id": "roof_001",
+          "area": 100.0,
+          "azimuth": 180.0,
+          "tilt": 30.0,
+          "irradiation": 1000.0,
+          "totalIrradiation": 100000.0
+        },
+        {
+          "id": "roof_002",
+          "area": 100.0,
+          "azimuth": 180.0,
+          "tilt": 30.0,
+          "irradiation": 1000.0,
+          "totalIrradiation": 100000.0
+        }
+      ],
+      "geometry": [
+        [
+          0.0,
+          0.0,
+          15.0
+        ],
+        [
+          20.0,
+          0.0,
+          15.0
+        ],
+        [
+          20.0,
+          20.0,
+          15.0
+        ],
+        [
+          0.0,
+          20.0,
+          15.0
+        ],
+        [
+          0.0,
+          0.0,
+          15.0
+        ],
+        [
+          0.0,
+          0.0,
+          15.0
+        ],
+        [
+          10.0,
+          0.0,
+          20.0
+        ],
+        [
+          10.0,
+          20.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0,
+          15.0
+        ],
+        [
+          0.0,
+          0.0,
+          15.0
+        ]
+      ]
+    },
+    {
+      "id": "building_002",
+      "position": {
+        "x": 60.0,
+        "y": 20.0,
+        "z": 40.0
+      },
+      "dimensions": {
+        "width": 25.0,
+        "height": 5.0,
+        "depth": 25.0
+      },
+      "roofSurfaces": [
+        {
+          "id": "roof_003",
+          "area": 100.0,
+          "azimuth": 180.0,
+          "tilt": 30.0,
+          "irradiation": 1000.0,
+          "totalIrradiation": 100000.0
+        }
+      ],
+      "geometry": [
+        [
+          50.0,
+          30.0,
+          20.0
+        ],
+        [
+          75.0,
+          30.0,
+          20.0
+        ],
+        [
+          75.0,
+          55.0,
+          20.0
+        ],
+        [
+          50.0,
+          55.0,
+          20.0
+        ],
+        [
+          50.0,
+          30.0,
+          20.0
+        ]
+      ]
+    }
+  ],
+  "metadata": {
+    "totalBuildings": 2,
+    "totalSurfaces": 3,
+    "totalArea": 300.0,
+    "avgIrradiation": 1000.0
+  }
+}

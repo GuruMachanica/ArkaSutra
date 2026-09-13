@@ -1,0 +1,103 @@
+{
+  "buildings": [
+    {
+      "id": "building_001",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "dimensions": {
+        "width": 20,
+        "height": 15,
+        "depth": 20
+      },
+      "roofSurfaces": [
+        {
+          "id": "roof_001",
+          "area": 200,
+          "azimuth": 180,
+          "tilt": 30,
+          "irradiation": 1200,
+          "totalIrradiation": 240000
+        },
+        {
+          "id": "roof_002",
+          "area": 150,
+          "azimuth": 90,
+          "tilt": 45,
+          "irradiation": 800,
+          "totalIrradiation": 120000
+        }
+      ]
+    },
+    {
+      "id": "building_002",
+      "position": {
+        "x": 50,
+        "y": 0,
+        "z": 30
+      },
+      "dimensions": {
+        "width": 25,
+        "height": 20,
+        "depth": 25
+      },
+      "roofSurfaces": [
+        {
+          "id": "roof_003",
+          "area": 300,
+          "azimuth": 180,
+          "tilt": 25,
+          "irradiation": 1500,
+          "totalIrradiation": 450000
+        },
+        {
+          "id": "roof_004",
+          "area": 200,
+          "azimuth": 270,
+          "tilt": 35,
+          "irradiation": 900,
+          "totalIrradiation": 180000
+        }
+      ]
+    },
+    {
+      "id": "building_003",
+      "position": {
+        "x": -40,
+        "y": 0,
+        "z": -20
+      },
+      "dimensions": {
+        "width": 18,
+        "height": 12,
+        "depth": 18
+      },
+      "roofSurfaces": [
+        {
+          "id": "roof_005",
+          "area": 180,
+          "azimuth": 0,
+          "tilt": 40,
+          "irradiation": 600,
+          "totalIrradiation": 108000
+        },
+        {
+          "id": "roof_006",
+          "area": 120,
+          "azimuth": 90,
+          "tilt": 20,
+          "irradiation": 1100,
+          "totalIrradiation": 132000
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "totalBuildings": 3,
+    "totalSurfaces": 6,
+    "totalArea": 1150,
+    "avgIrradiation": 1069.5652173913043
+  }
+}

@@ -1,0 +1,53 @@
+name: SunMap CI/CD Deployment Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+        cache-dependency-path: Frontend/package-lock.json
+
+    - name: Install Frontend Dependencies
+      run: npm --prefix Frontend ci
+
+    - name: Build Frontend Application
+      run: npm --prefix Frontend run build
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+        cache-dependency-path: Backend/requirements.txt
+
+    - name: Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r Backend/requirements.txt
+
+    - name: Test FastAPI Backend Startup
+      run: |
+        python -c "import Backend.server as server; print('FastAPI App Status:', server.app.title)"
+
+    - name: Verify Docker Build (Unified Single Deployment)
+      run: docker build -t sunmap-unified:latest .
+
+    - name: Verify Docker Build (Frontend)
+      run: docker build -t sunmap-frontend:latest ./Frontend
+
+    - name: Verify Docker Build (Backend)
+      run: docker build -t sunmap-backend:latest ./Backend

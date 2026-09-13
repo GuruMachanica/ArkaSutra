@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  frontend-dev:
+    image: node:20-alpine
+    container_name: sunmap-frontend-dev
+    working_dir: /app
+    volumes:
+      - ./Frontend:/app
+      - /app/node_modules
+    ports:
+      - "5175:5175"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5175"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - sunmap-dev-network
+
+  backend-dev:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: sunmap-backend-dev
+    volumes:
+      - ./Backend:/app
+    ports:
+      - "8000:8000"
+    command: python server.py 8000 --no-browser
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - sunmap-dev-network
+
+networks:
+  sunmap-dev-network:
+    driver: bridge

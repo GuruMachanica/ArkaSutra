@@ -1,0 +1,25 @@
+{
+  "name": "sunmap-ecosystem",
+  "version": "2.0.0",
+  "private": true,
+  "description": "SunMap - Smart 3D Spatial Solar Energy & Rooftop Intelligence Engine",
+  "scripts": {
+    "start": "python Backend/server.py",
+    "dev": "npm --prefix Frontend run dev",
+    "build": "npm --prefix Frontend run build",
+    "preview": "npm --prefix Frontend run preview",
+    "start:backend": "python Backend/server.py",
+    "dev:frontend": "npm --prefix Frontend run dev"
+  },
+  "keywords": [
+    "solar",
+    "threejs",
+    "citygml",
+    "photovoltaic",
+    "gis",
+    "fastapi",
+    "ray-tracing"
+  ],
+  "author": "Team Ironlogic",
+  "license": "Proprietary"
+}
