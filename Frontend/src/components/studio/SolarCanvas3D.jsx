@@ -17,7 +17,8 @@ const SolarCanvas3D = forwardRef(({
   onMeshStatsUpdate,
   panelTilt = 25,
   activeCamPreset = "orbit",
-  onCamPresetChange
+  onCamPresetChange,
+  cloudCover = 15
 }, ref) => {
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
@@ -236,7 +237,14 @@ const SolarCanvas3D = forwardRef(({
       sunLightRef.current.color.setHex(0xfffaed);
       sunLightRef.current.intensity = 5.2;
     }
-  }, [elevation, azimuth]);
+
+    // Dynamic Satellite Cloud Attenuation (Copernicus / ERA5 live feed)
+    const cloudFactor = Math.max(0.20, 1.0 - (cloudCover / 100) * 0.75);
+    sunLightRef.current.intensity *= cloudFactor;
+    if (sunLightRef.current.shadow) {
+      sunLightRef.current.shadow.radius = 1.2 + (cloudCover / 100) * 2.8;
+    }
+  }, [elevation, azimuth, cloudCover]);
 
   // 3. Dense Procedural Real-World Architecture Generator
   useEffect(() => {

@@ -14,12 +14,17 @@ import argparse
 from typing import Dict, Any, Optional
 from datetime import datetime, timezone
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 import uvicorn
+
+try:
+    from Backend.satellite_service import fetch_satellite_solar_telemetry, geocode_location
+except ImportError:
+    from satellite_service import fetch_satellite_solar_telemetry, geocode_location
 
 # Ensure UTF-8 output
 if hasattr(sys.stdout, 'reconfigure'):
@@ -255,6 +260,58 @@ def calculate_solar_position(req: SolarPositionRequest):
         "airmass": round(airmass, 2),
         "extraterrestrial_dni": round(dni, 1),
         "base_ghi_w_m2": round(ghi, 1)
+    }
+
+@app.get("/api/satellite/live-solar", tags=["Satellite Telemetry"])
+async def get_live_satellite_solar(
+    latitude: float = Query(..., examples=[50.1109], description="Latitude in decimal degrees"),
+    longitude: float = Query(..., examples=[8.6821], description="Longitude in decimal degrees")
+):
+    """Retrieve real-time satellite solar radiation, cloud cover %, and weather telemetry."""
+    return await fetch_satellite_solar_telemetry(latitude, longitude)
+
+@app.get("/api/satellite/geocode", tags=["Satellite Telemetry"])
+async def geocode_city_search(
+    query: str = Query(..., min_length=2, examples=["Frankfurt"], description="City name to search")
+):
+    """Zero-key geocoding search to resolve any global city or address to coordinates."""
+    results = await geocode_location(query)
+    return {"query": query, "count": len(results), "results": results}
+
+@app.post("/api/solar/calculate-live", tags=["Solar Physics"])
+async def calculate_solar_live(req: SolarCalculationRequest):
+    """
+    Calculate annual and instantaneous PV yield using live satellite atmospheric measurements.
+    Dynamically applies real-time satellite cloud derate and thermal cell temperature penalties.
+    """
+    base_result = calculate_solar_physics(req)
+    sat_data = await fetch_satellite_solar_telemetry(req.latitude, req.longitude)
+    current_sat = sat_data.get("current", {})
+    
+    cloud_derate = current_sat.get("cloud_derate_factor", 1.0)
+    thermal_penalty_pct = current_sat.get("thermal_efficiency_penalty_pct", 0.0)
+    net_efficiency_multiplier = max(0.15, cloud_derate * (1.0 - thermal_penalty_pct / 100.0))
+    
+    live_generation_kwh = round(base_result["annual_generation_kwh"] * net_efficiency_multiplier, 0)
+    live_savings_usd = round(live_generation_kwh * req.electricity_rate_usd, 2)
+    live_co2 = round((live_generation_kwh * 0.385) / 1000.0, 2)
+    
+    return {
+        **base_result,
+        "satellite_telemetry": {
+            "source": sat_data.get("source"),
+            "status": sat_data.get("status"),
+            "live_dni_w_m2": current_sat.get("dni_w_m2"),
+            "live_ghi_w_m2": current_sat.get("ghi_w_m2"),
+            "live_cloud_cover_pct": current_sat.get("cloud_cover_pct"),
+            "live_temperature_c": current_sat.get("temperature_c"),
+            "sky_condition": current_sat.get("sky_condition"),
+            "cloud_derate_factor": cloud_derate,
+            "thermal_penalty_pct": thermal_penalty_pct
+        },
+        "live_adjusted_generation_kwh": live_generation_kwh,
+        "live_adjusted_savings_usd": live_savings_usd,
+        "live_adjusted_co2_offset_tons": live_co2
     }
 
 # -----------------------------------------------------------------------------
