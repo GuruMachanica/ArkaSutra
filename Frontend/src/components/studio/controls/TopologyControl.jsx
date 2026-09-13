@@ -1,11 +1,12 @@
 import React from "react";
-import { Building, Home, Grid } from "lucide-react";
+import { Building, Home, Grid, MapPin } from "lucide-react";
 
 const SCENE_PRESETS = [
   { id: "commercial", label: "Commercial", icon: Building },
   { id: "highrise", label: "High-Rise", icon: Building },
   { id: "residential", label: "Residential", icon: Home },
-  { id: "farm", label: "Solar Matrix", icon: Grid }
+  { id: "farm", label: "Solar Matrix", icon: Grid },
+  { id: "city", label: "3D City Grid", icon: MapPin }
 ];
 
 export default function TopologyControl({ scenePreset, setScenePreset }) {
@@ -23,17 +24,11 @@ export default function TopologyControl({ scenePreset, setScenePreset }) {
               key={p.id}
               onClick={() => setScenePreset(p.id)}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "8px 10px",
-                borderRadius: "10px",
+                display: "flex", alignItems: "center", gap: "8px", padding: "8px 10px", borderRadius: "10px",
                 border: active ? "1px solid #f59e0b" : "1px solid rgba(255, 255, 255, 0.08)",
                 background: active ? "rgba(245, 158, 11, 0.15)" : "rgba(255, 255, 255, 0.02)",
-                color: active ? "#f59e0b" : "#94a3b8",
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                cursor: "pointer"
+                color: active ? "#f59e0b" : "#94a3b8", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer",
+                gridColumn: p.id === "city" ? "span 2" : "span 1"
               }}>
               <Icon size={14} />
               <span>{p.label}</span>

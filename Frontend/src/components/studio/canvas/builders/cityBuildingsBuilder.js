@@ -3,56 +3,60 @@ import * as THREE from "three";
 export function buildCityBuildings(group, cityBuildings, materials, solarPanelsRef) {
   if (!cityBuildings || cityBuildings.length === 0) return;
 
-  const facadeMat = typeof materials?.getBuildingMat === "function"
-    ? materials.getBuildingMat(0x334155, 0.7, 0.2)
-    : new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.7 });
-
-  cityBuildings.forEach((bldg) => {
+  cityBuildings.forEach((bldg, bIdx) => {
     const pts = bldg.polygon;
     if (!pts || pts.length < 3) return;
 
-    const height = Math.max(5, bldg.height || 12);
+    const height = Math.max(8, bldg.height || 16);
     const shape = new THREE.Shape();
-
     pts.forEach((pt, idx) => {
-      if (idx === 0) shape.moveTo(pt[0], -pt[1]);
-      else shape.lineTo(pt[0], -pt[1]);
+      if (idx === 0) shape.moveTo(pt[0], pt[1]);
+      else shape.lineTo(pt[0], pt[1]);
     });
 
-    const extrudeSettings = { depth: height, bevelEnabled: true, bevelSegments: 1, steps: 1, bevelSize: 0.2, bevelThickness: 0.2 };
+    // Extrude vertically into +Y by rotating -90 deg around X
+    const extrudeSettings = { depth: height, bevelEnabled: true, bevelSize: 0.3, bevelThickness: 0.3, steps: 1 };
     const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-    geom.rotateX(Math.PI / 2);
+    geom.rotateX(-Math.PI / 2);
 
-    const mesh = new THREE.Mesh(geom, facadeMat);
-    mesh.position.set(0, 0, 0);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    group.add(mesh);
+    const hue = (bIdx * 45) % 360;
+    const facadeColor = new THREE.Color(`hsl(${hue}, 15%, 28%)`);
+    const facadeMat = new THREE.MeshStandardMaterial({ color: facadeColor, roughness: 0.6, metalness: 0.2 });
+    const buildingMesh = new THREE.Mesh(geom, facadeMat);
+    buildingMesh.castShadow = true;
+    buildingMesh.receiveShadow = true;
+    group.add(buildingMesh);
 
-    // Direct mesh standard material for rooftop facet
+    // Interactive 3D Rooftop cap
     const roofGeom = new THREE.ShapeGeometry(shape);
-    roofGeom.rotateX(Math.PI / 2);
-    const roofMat = new THREE.MeshStandardMaterial({
-      color: 0x0284c7,
-      roughness: 0.2,
-      metalness: 0.85
-    });
-
+    roofGeom.rotateX(-Math.PI / 2);
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.2, metalness: 0.85 });
     const roofMesh = new THREE.Mesh(roofGeom, roofMat);
-    roofMesh.position.set(0, height + 0.05, 0);
+    roofMesh.position.set(0, height + 0.1, 0);
     roofMesh.castShadow = true;
     roofMesh.receiveShadow = true;
 
-    roofMesh.userData = {
-      isRoof: true,
-      buildingName: bldg.name,
-      osmId: bldg.osm_id,
-      solar: bldg.solar
-    };
-
+    roofMesh.userData = { isRoof: true, buildingName: bldg.name, osmId: bldg.osm_id, solar: bldg.solar };
     group.add(roofMesh);
-    if (solarPanelsRef?.current) {
-      solarPanelsRef.current.push(roofMesh);
+
+    // Add angled Photovoltaic modules on the roof
+    const cx = bldg.center.x, cz = bldg.center.z;
+    const panelCols = Math.max(2, Math.min(6, Math.floor(Math.sqrt(bldg.roof_area_m2) / 4)));
+    const pvMat = new THREE.MeshStandardMaterial({ color: 0x1e3a8a, roughness: 0.15, metalness: 0.95 });
+
+    for (let r = 0; r < panelCols; r++) {
+      for (let c = 0; c < panelCols; c++) {
+        const px = cx - (panelCols * 1.6) / 2 + c * 1.8;
+        const pz = cz - (panelCols * 1.4) / 2 + r * 1.6;
+        const pvGeom = new THREE.BoxGeometry(1.5, 0.08, 1.2);
+        const pvMesh = new THREE.Mesh(pvGeom, pvMat);
+        pvMesh.position.set(px, height + 0.35, pz);
+        pvMesh.rotation.x = THREE.MathUtils.degToRad(25); // 25 deg tilt toward South
+        pvMesh.castShadow = true;
+        group.add(pvMesh);
+      }
     }
+
+    if (solarPanelsRef?.current) solarPanelsRef.current.push(roofMesh);
   });
 }

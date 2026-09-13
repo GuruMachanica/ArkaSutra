@@ -22,17 +22,16 @@ export function useProceduralWorld({ modelsGroupRef, scenePreset, shadingMode, p
     solarPanelsRef.current = [];
     const materials = createMaterials(shadingMode);
 
-    if (cityBuildings && cityBuildings.length > 0) {
+    if (scenePreset !== "utility" && scenePreset !== "farm") {
       buildEnvironment(group, materials);
+    }
+
+    if (scenePreset === "city" && cityBuildings && cityBuildings.length > 0) {
       buildCityBuildings(group, cityBuildings, materials, solarPanelsRef);
       const totalArea = cityBuildings.reduce((sum, b) => sum + (b.roof_area_m2 || 0), 0);
       const totalKwp = cityBuildings.reduce((sum, b) => sum + (b.solar?.pv_capacity_kwp || 0), 0);
       if (onMeshStatsUpdate) onMeshStatsUpdate({ totalRooftopArea: Math.round(totalArea), panelsCount: Math.round(totalKwp * 2.5), systemCapacityKwp: Math.round(totalKwp) });
-      return;
-    }
-
-    if (scenePreset !== "utility") buildEnvironment(group, materials);
-    if (scenePreset === "commercial") {
+    } else if (scenePreset === "commercial") {
       buildCommercial(group, materials, panelTilt, solarPanelsRef);
       if (onMeshStatsUpdate) onMeshStatsUpdate({ totalRooftopArea: 820, panelsCount: 180, systemCapacityKwp: 72.0 });
     } else if (scenePreset === "residential") {
