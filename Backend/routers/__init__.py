@@ -2,10 +2,12 @@ from .topologies import router as topologies_router
 from .satellite import router as satellite_router
 from .solar import router as solar_router
 from .city_map import router as city_map_router
+from .agent import router as agent_router
 
 __all__ = [
     "topologies_router",
     "satellite_router",
     "solar_router",
-    "city_map_router"
+    "city_map_router",
+    "agent_router"
 ]

@@ -8,6 +8,8 @@ import GlobalSearchModal from "./studio/GlobalSearchModal";
 import { useSatelliteSync } from "./studio/useSatelliteSync";
 import { useCityMapLoader } from "./studio/useCityMapLoader";
 import { RoofInspectorHUD } from "../components/studio/analytics/RoofInspectorHUD";
+import { useAutonomousAgent } from "../components/studio/agent/useAutonomousAgent";
+import { AutonomousAgentHUD } from "../components/studio/agent/AutonomousAgentHUD";
 
 export default function StudioPage(props) {
   const {
@@ -21,9 +23,15 @@ export default function StudioPage(props) {
   const [activeCamPreset, setActiveCamPreset] = useState("orbit");
   const [searchOpen, setSearchOpen] = useState(false);
   const [selectedRoof, setSelectedRoof] = useState(null);
+  const [agentOpen, setAgentOpen] = useState(false);
 
   const { activeLocation, setActiveLocation, satelliteData, isLoadingSatellite } = useSatelliteSync(scenePreset);
   const { cityData } = useCityMapLoader(activeLocation);
+
+  const agent = useAutonomousAgent({
+    buildings: cityData?.buildings || [], latitude: activeLocation?.lat || 35.68,
+    season, setPanelTilt, setShadingMode, onSelectRoof: setSelectedRoof
+  });
 
   useEffect(() => {
     if (activeLocation?.lat && setLatitude) setLatitude(activeLocation.lat);
@@ -56,9 +64,11 @@ export default function StudioPage(props) {
           onBackToHome={onBackToHome} topologyName={cityData?.source ? `${activeLocation.name || "Live City"} (3D GIS)` : currentTopology.name}
           activeCamPreset={activeCamPreset} onCamPresetChange={handleCamPresetChange}
           activeLocation={activeLocation} onOpenSearch={() => setSearchOpen(!searchOpen)}
+          isAgentOpen={agentOpen} onToggleAgent={() => setAgentOpen(!agentOpen)}
         />
         <GlobalSearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} onSelectCity={handleSelectCity} />
         <RoofInspectorHUD roofData={selectedRoof} onClose={() => setSelectedRoof(null)} />
+        <AutonomousAgentHUD agent={agent} isOpen={agentOpen} onClose={() => setAgentOpen(false)} />
 
         <div style={{ position: "absolute", top: "76px", left: "16px", zIndex: 20, width: "380px", maxWidth: "calc(100vw - 32px)", maxHeight: "calc(100vh - 170px)" }}>
           <SolarControls

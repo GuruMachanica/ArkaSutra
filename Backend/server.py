@@ -21,9 +21,9 @@ from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 try:
-    from Backend.routers import topologies_router, satellite_router, solar_router, city_map_router
+    from Backend.routers import topologies_router, satellite_router, solar_router, city_map_router, agent_router
 except ImportError:
-    from routers import topologies_router, satellite_router, solar_router, city_map_router
+    from routers import topologies_router, satellite_router, solar_router, city_map_router, agent_router
 
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -48,6 +48,7 @@ app.include_router(topologies_router)
 app.include_router(satellite_router)
 app.include_router(solar_router)
 app.include_router(city_map_router)
+app.include_router(agent_router)
 
 FRONTEND_DIST_DIR = os.path.join(ROOT_DIR, "Frontend", "dist")
 

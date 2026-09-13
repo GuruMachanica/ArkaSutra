@@ -1,8 +1,8 @@
 import React from "react";
-import { ArrowLeft, Globe, Search } from "lucide-react";
+import { ArrowLeft, Globe, Search, Bot } from "lucide-react";
 import { CAMERA_PRESETS } from "./studioConstants";
 
-export default function StudioHeader({ onBackToHome, topologyName, activeCamPreset, onCamPresetChange, activeLocation, onOpenSearch }) {
+export default function StudioHeader({ onBackToHome, topologyName, activeCamPreset, onCamPresetChange, activeLocation, onOpenSearch, isAgentOpen, onToggleAgent }) {
   const pillStyle = { display: "flex", alignItems: "center", background: "rgba(15, 23, 42, 0.85)", backdropFilter: "blur(16px)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", fontFamily: "monospace" };
 
   return (
@@ -27,12 +27,15 @@ export default function StudioHeader({ onBackToHome, topologyName, activeCamPres
         ))}
       </div>
 
-      {/* Right: Sat Search Pill */}
+      {/* Right: Sat Search Pill & AI Agent */}
       <div style={{ display: "flex", alignItems: "center", gap: "8px", pointerEvents: "auto" }}>
         <button onClick={onOpenSearch} title="Search any global city" style={{ ...pillStyle, gap: "8px", border: "1px solid rgba(56, 189, 248, 0.35)", padding: "7px 14px", fontSize: "0.75rem", color: "#38bdf8", cursor: "pointer" }}>
           <Search size={13} color="#38bdf8" />
           <span>{activeLocation.label || `${activeLocation.lat}°, ${activeLocation.lon}°`}</span>
           <span style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontSize: "0.65rem", padding: "2px 6px", borderRadius: "6px", fontWeight: 700 }}>SAT LIVE</span>
+        </button>
+        <button onClick={onToggleAgent} style={{ ...pillStyle, gap: "6px", border: isAgentOpen ? "1px solid #f59e0b" : "1px solid rgba(245, 158, 11, 0.4)", background: isAgentOpen ? "rgba(245, 158, 11, 0.2)" : "rgba(15, 23, 42, 0.85)", padding: "7px 12px", fontSize: "0.75rem", color: "#f59e0b", cursor: "pointer", fontWeight: 700 }}>
+          <Bot size={14} color="#f59e0b" /><span>AI AGENT</span>
         </button>
       </div>
     </header>
