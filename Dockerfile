@@ -42,7 +42,8 @@ RUN pip install --no-cache-dir -r ./Backend/requirements.txt
 
 # Copy Backend application and datasets
 COPY Backend/ ./Backend/
-COPY datasets/ ./datasets/
+COPY Datasets/ ./Datasets/
+COPY Datasets/ ./datasets/
 
 
 # Copy compiled Frontend distribution from builder
