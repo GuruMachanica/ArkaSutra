@@ -2,9 +2,9 @@ try:
     from Backend.gis.geometry import polygon3dmodule, markup3dmodule
 except ImportError:
     try:
-        from gis.geometry import polygon3dmodule, markup3dmodule
+        from ..geometry import polygon3dmodule, markup3dmodule
     except ImportError:
-        import polygon3dmodule, markup3dmodule
+        from gis.geometry import polygon3dmodule, markup3dmodule
 
 try:
     from .irr import yearly_total_irr

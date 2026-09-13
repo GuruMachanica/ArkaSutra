@@ -3,9 +3,12 @@ import numpy as np
 
 try:
     import pandas as pd
-    import pvlib
-except ImportError:
+except Exception:
     pd = None
+
+try:
+    pvlib = __import__("pvlib")
+except Exception:
     pvlib = None
 
 def run_daily_simulation(place=(52.01, 4.36), epochs=None, interval=5):
@@ -18,7 +21,6 @@ def run_daily_simulation(place=(52.01, 4.36), epochs=None, interval=5):
     ]
     res = {}
     if not pvlib or not pd:
-        # Fallback simulation profile
         for epoch in epochs:
             m_s = f"0{epoch[0]}" if epoch[0] < 10 else str(epoch[0])
             d_s = f"0{epoch[1]}" if epoch[1] < 10 else str(epoch[1])

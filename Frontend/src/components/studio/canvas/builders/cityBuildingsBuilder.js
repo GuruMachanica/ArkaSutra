@@ -7,8 +7,6 @@ export function buildCityBuildings(group, cityBuildings, materials, solarPanelsR
     ? materials.getBuildingMat(0x334155, 0.7, 0.2)
     : new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.7 });
 
-  const baseRoofMat = materials?.pvPanelMat || new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.2, metalness: 0.85 });
-
   cityBuildings.forEach((bldg) => {
     const pts = bldg.polygon;
     if (!pts || pts.length < 3) return;
@@ -31,12 +29,14 @@ export function buildCityBuildings(group, cityBuildings, materials, solarPanelsR
     mesh.receiveShadow = true;
     group.add(mesh);
 
-    // Interactive roof surface mesh
+    // Direct mesh standard material for rooftop facet
     const roofGeom = new THREE.ShapeGeometry(shape);
     roofGeom.rotateX(Math.PI / 2);
-    const roofMat = baseRoofMat.clone();
-    roofMat.color = new THREE.Color("#0284c7");
-    roofMat.roughness = 0.2;
+    const roofMat = new THREE.MeshStandardMaterial({
+      color: 0x0284c7,
+      roughness: 0.2,
+      metalness: 0.85
+    });
 
     const roofMesh = new THREE.Mesh(roofGeom, roofMat);
     roofMesh.position.set(0, height + 0.05, 0);
