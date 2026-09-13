@@ -3,12 +3,19 @@ import * as THREE from "three";
 export function buildCityBuildings(group, cityBuildings, materials, solarPanelsRef) {
   if (!cityBuildings || cityBuildings.length === 0) return;
 
+  const facadeMat = typeof materials?.getBuildingMat === "function"
+    ? materials.getBuildingMat(0x334155, 0.7, 0.2)
+    : new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.7 });
+
+  const baseRoofMat = materials?.pvPanelMat || new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.2, metalness: 0.85 });
+
   cityBuildings.forEach((bldg) => {
     const pts = bldg.polygon;
+    if (!pts || pts.length < 3) return;
+
     const height = Math.max(5, bldg.height || 12);
     const shape = new THREE.Shape();
 
-    // Trace 2D footprint
     pts.forEach((pt, idx) => {
       if (idx === 0) shape.moveTo(pt[0], -pt[1]);
       else shape.lineTo(pt[0], -pt[1]);
@@ -16,18 +23,18 @@ export function buildCityBuildings(group, cityBuildings, materials, solarPanelsR
 
     const extrudeSettings = { depth: height, bevelEnabled: true, bevelSegments: 1, steps: 1, bevelSize: 0.2, bevelThickness: 0.2 };
     const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-    geom.rotateX(Math.PI / 2); // Orient extrusion upward along Y axis
+    geom.rotateX(Math.PI / 2);
 
-    const mesh = new THREE.Mesh(geom, materials.facade || materials.building);
+    const mesh = new THREE.Mesh(geom, facadeMat);
     mesh.position.set(0, 0, 0);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     group.add(mesh);
 
-    // Create interactive roof surface mesh
+    // Interactive roof surface mesh
     const roofGeom = new THREE.ShapeGeometry(shape);
     roofGeom.rotateX(Math.PI / 2);
-    const roofMat = materials.solar.clone();
+    const roofMat = baseRoofMat.clone();
     roofMat.color = new THREE.Color("#0284c7");
     roofMat.roughness = 0.2;
 
@@ -36,7 +43,6 @@ export function buildCityBuildings(group, cityBuildings, materials, solarPanelsR
     roofMesh.castShadow = true;
     roofMesh.receiveShadow = true;
 
-    // Attach interactive raycasting metadata
     roofMesh.userData = {
       isRoof: true,
       buildingName: bldg.name,
