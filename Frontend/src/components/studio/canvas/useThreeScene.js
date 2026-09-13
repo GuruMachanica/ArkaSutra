@@ -18,7 +18,7 @@ export function useThreeScene(mountRef) {
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0e17);
-    scene.fog = new THREE.FogExp2(0x0a0e17, 0.005);
+    scene.fog = new THREE.FogExp2(0x0a0e17, 0.002);
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 2500);
@@ -46,18 +46,18 @@ export function useThreeScene(mountRef) {
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 4096;
     sunLight.shadow.mapSize.height = 4096;
-    sunLight.shadow.camera.near = 2.0;
-    sunLight.shadow.camera.far = 300;
-    sunLight.shadow.camera.left = -90;
-    sunLight.shadow.camera.right = 90;
-    sunLight.shadow.camera.top = 90;
-    sunLight.shadow.camera.bottom = -90;
+    sunLight.shadow.camera.near = 5.0;
+    sunLight.shadow.camera.far = 480;
+    sunLight.shadow.camera.left = -140;
+    sunLight.shadow.camera.right = 140;
+    sunLight.shadow.camera.top = 140;
+    sunLight.shadow.camera.bottom = -140;
     sunLight.shadow.bias = -0.00025;
     sunLight.shadow.radius = 1.4;
     scene.add(sunLight);
     sunLightRef.current = sunLight;
 
-    const sunSphere = new THREE.Mesh(new THREE.SphereGeometry(3.6, 32, 32), new THREE.MeshBasicMaterial({ color: 0xffd159 }));
+    const sunSphere = new THREE.Mesh(new THREE.SphereGeometry(6.5, 32, 32), new THREE.MeshBasicMaterial({ color: 0xffd159 }));
     scene.add(sunSphere);
     sunSphereRef.current = sunSphere;
 

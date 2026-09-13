@@ -7,7 +7,7 @@ export function useSunLighting({ elevation, azimuth, cloudCover, sunLightRef, su
 
     const radElev = (elevation * Math.PI) / 180;
     const radAzim = (azimuth * Math.PI) / 180;
-    const dist = 88;
+    const dist = 185;
 
     const x = dist * Math.cos(radElev) * Math.sin(radAzim);
     const y = Math.max(1.8, dist * Math.sin(radElev));
