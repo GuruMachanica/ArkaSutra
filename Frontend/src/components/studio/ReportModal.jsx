@@ -1,7 +1,9 @@
 import React from "react";
-import { X, Printer, ShieldCheck } from "lucide-react";
+import { X, Printer } from "lucide-react";
+import ReportHighlights from "./report/ReportHighlights";
+import ReportFinancials from "./report/ReportFinancials";
 
-const ReportModal = ({ isOpen, onClose, stats = {}, elevation = 45, azimuth = 180, scenePreset = "commercial" }) => {
+export default function ReportModal({ isOpen, onClose, stats = {}, scenePreset = "commercial" }) {
   if (!isOpen) return null;
 
   const area = stats.totalRooftopArea || 820.0;
@@ -16,43 +18,18 @@ const ReportModal = ({ isOpen, onClose, stats = {}, elevation = 45, azimuth = 18
 
   return (
     <div style={{
-      position: "fixed",
-      inset: 0,
-      zIndex: 1000,
-      background: "rgba(0, 0, 0, 0.85)",
-      backdropFilter: "blur(12px)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "20px"
+      position: "fixed", inset: 0, zIndex: 1000, background: "rgba(0, 0, 0, 0.85)",
+      backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px"
     }}>
       <div style={{
-        background: "#0c111d",
-        border: "1px solid rgba(255, 255, 255, 0.18)",
-        borderRadius: "28px",
-        width: "100%",
-        maxWidth: "760px",
-        padding: "32px",
-        color: "#ffffff",
-        position: "relative",
-        maxHeight: "90vh",
-        overflowY: "auto",
-        boxShadow: "0 25px 80px rgba(0,0,0,0.9)",
-        fontFamily: "monospace"
+        background: "#0c111d", border: "1px solid rgba(255, 255, 255, 0.18)",
+        borderRadius: "28px", width: "100%", maxWidth: "760px", padding: "32px",
+        color: "#ffffff", position: "relative", maxHeight: "90vh", overflowY: "auto", fontFamily: "monospace"
       }}>
         <button
           onClick={onClose}
-          style={{
-            position: "absolute",
-            top: "24px",
-            right: "24px",
-            background: "rgba(255, 255, 255, 0.05)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            color: "#ffffff",
-            padding: "8px",
-            borderRadius: "10px",
-            cursor: "pointer"
-          }}>
+          style={{ position: "absolute", top: "24px", right: "24px", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", color: "#ffffff", padding: "8px", borderRadius: "10px", cursor: "pointer" }}
+        >
           <X size={16} />
         </button>
 
@@ -68,84 +45,20 @@ const ReportModal = ({ isOpen, onClose, stats = {}, elevation = 45, azimuth = 18
           </span>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "20px" }}>
-          <div style={{ background: "rgba(255, 255, 255, 0.02)", padding: "16px", borderRadius: "16px", border: "1px solid rgba(255, 255, 255, 0.06)" }}>
-            <span style={{ color: "#64748b", fontSize: "0.72rem", display: "block" }}>RECOMMENDED SYSTEM CAPACITY</span>
-            <span style={{ fontSize: "1.4rem", fontWeight: 800, color: "#f59e0b" }}>{kw} kWp</span>
-            <span style={{ fontSize: "0.72rem", color: "#94a3b8", display: "block" }}>{panels} Monocrystalline PV Modules</span>
-          </div>
+        <ReportHighlights kw={kw} panels={panels} annualKwh={annualKwh} stats={stats} />
+        <ReportFinancials netCapex={netCapex} annualSavings={annualSavings} payback={payback} co2={co2} />
 
-          <div style={{ background: "rgba(255, 255, 255, 0.02)", padding: "16px", borderRadius: "16px", border: "1px solid rgba(255, 255, 255, 0.06)" }}>
-            <span style={{ color: "#64748b", fontSize: "0.72rem", display: "block" }}>ANNUAL CLEAN ENERGY GENERATION</span>
-            <span style={{ fontSize: "1.4rem", fontWeight: 800, color: "#10b981" }}>{Number(annualKwh).toLocaleString()} kWh/yr</span>
-            <span style={{ fontSize: "0.72rem", color: "#94a3b8", display: "block" }}>GHI: {stats.annualGhi || 1285} kWh/m²/yr</span>
-          </div>
-        </div>
-
-        <div style={{ background: "rgba(255, 255, 255, 0.02)", padding: "16px", borderRadius: "16px", border: "1px solid rgba(255, 255, 255, 0.06)", display: "flex", flexDirection: "column", gap: "12px", marginBottom: "24px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span style={{ color: "#94a3b8" }}>Net Turnkey Installation Capex (30% ITC applied):</span>
-            <strong style={{ color: "#ffffff" }}>${netCapex.toLocaleString()}</strong>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span style={{ color: "#94a3b8" }}>Estimated Year 1 Utility Revenue Offset:</span>
-            <strong style={{ color: "#10b981" }}>${Number(annualSavings).toLocaleString()}/yr</strong>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span style={{ color: "#94a3b8" }}>Projected Simple Payback Horizon:</span>
-            <strong style={{ color: "#f59e0b" }}>{payback} Years</strong>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span style={{ color: "#94a3b8" }}>Lifetime 25-Year Cumulative Carbon Abatement:</span>
-            <strong style={{ color: "#ffffff" }}>{(parseFloat(co2) * 25).toFixed(0)} Metric Tons CO₂</strong>
-          </div>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#10b981", fontSize: "0.78rem" }}>
-            <ShieldCheck size={16} />
-            <span>NREL PVLib Benchmarked &amp; CityGML LOD2 Compliant</span>
-          </div>
-
-          <div style={{ display: "flex", gap: "10px" }}>
-            <button
-              onClick={() => window.print()}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-                padding: "10px 18px",
-                borderRadius: "12px",
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
-                color: "#ffffff",
-                fontSize: "0.82rem",
-                fontWeight: 700,
-                cursor: "pointer"
-              }}>
-              <Printer size={14} />
-              <span>Print Audit</span>
-            </button>
-
-            <button
-              onClick={onClose}
-              style={{
-                padding: "10px 22px",
-                borderRadius: "12px",
-                background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
-                border: "none",
-                color: "#ffffff",
-                fontSize: "0.82rem",
-                fontWeight: 700,
-                cursor: "pointer"
-              }}>
-              Close
-            </button>
-          </div>
-        </div>
+        <button
+          onClick={() => window.print()}
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
+            width: "100%", background: "#f59e0b", color: "#000000", border: "none",
+            padding: "14px", borderRadius: "14px", fontWeight: 800, cursor: "pointer"
+          }}
+        >
+          <Printer size={16} /> Print Bankable Engineering Dossier
+        </button>
       </div>
     </div>
   );
-};
-
-export default ReportModal;
+}
