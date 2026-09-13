@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-SunMap — 3D Spatial Solar Energy & Rooftop Intelligence Engine
-FastAPI Production Server & REST API
-"""
+"""SunMap — 3D Spatial Solar Energy & Rooftop Intelligence Engine"""
 
 import os
 import sys
@@ -24,42 +21,34 @@ from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 try:
-    from Backend.routers import topologies_router, satellite_router, solar_router
+    from Backend.routers import topologies_router, satellite_router, solar_router, city_map_router
 except ImportError:
-    from routers import topologies_router, satellite_router, solar_router
+    from routers import topologies_router, satellite_router, solar_router, city_map_router
 
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 app = FastAPI(
     title="SunMap Spatial Solar Engine API",
-    version="2.0.0",
-    description="Spatial intelligence REST API for 3D rooftop normal extraction, Perez solar irradiance transposition, and satellite analytics.",
-    docs_url="/docs",
-    redoc_url="/redoc"
+    version="2.1.0",
+    description="Spatial intelligence API for live 3D city maps, per-roof solar irradiance, and satellite telemetry.",
+    docs_url="/docs", redoc_url="/redoc"
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 app.include_router(topologies_router)
 app.include_router(satellite_router)
 app.include_router(solar_router)
+app.include_router(city_map_router)
 
 FRONTEND_DIST_DIR = os.path.join(ROOT_DIR, "Frontend", "dist")
 
 @app.get("/api/health", tags=["System"])
 def get_health():
     return {
-        "status": "healthy",
-        "service": "SunMap Spatial Solar Engine",
-        "version": "2.0.0",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "status": "healthy", "service": "SunMap Spatial Solar Engine",
+        "version": "2.1.0", "timestamp": datetime.now(timezone.utc).isoformat(),
         "single_deployment_mode": os.path.exists(os.path.join(FRONTEND_DIST_DIR, "index.html"))
     }
 

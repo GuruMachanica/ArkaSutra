@@ -4,6 +4,7 @@ import { useThreeScene } from "./canvas/useThreeScene";
 import { useSunLighting } from "./canvas/useSunLighting";
 import { useCanvasInteraction } from "./canvas/useCanvasInteraction";
 import { useProceduralWorld } from "./canvas/useProceduralWorld";
+import { useRoofRaycaster } from "./canvas/useRoofRaycaster";
 
 const CAMERA_PRESETS = [
   { id: "orbit", pos: [52, 36, 58], target: [0, 4, 0] },
@@ -16,7 +17,7 @@ const SolarCanvas3D = forwardRef((props, ref) => {
   const {
     elevation = 55, azimuth = 180, shadingMode = "realistic",
     scenePreset = "commercial", onMeshStatsUpdate, panelTilt = 25,
-    onCamPresetChange, cloudCover = 15
+    onCamPresetChange, cloudCover = 15, cityBuildings = null, onSelectRoof = null
   } = props;
 
   const mountRef = useRef(null);
@@ -33,22 +34,16 @@ const SolarCanvas3D = forwardRef((props, ref) => {
   }));
 
   useSunLighting({ elevation, azimuth, cloudCover, sunLightRef, sunSphereRef, sceneRef });
-
   useCanvasInteraction({ mountRef, cameraRef, rendererRef, sceneRef, onCamPresetChange });
-
-  useProceduralWorld({ modelsGroupRef, scenePreset, shadingMode, panelTilt, onMeshStatsUpdate });
+  useProceduralWorld({ modelsGroupRef, scenePreset, shadingMode, panelTilt, cityBuildings, onMeshStatsUpdate });
+  useRoofRaycaster({ mountRef, cameraRef, modelsGroupRef, onSelectRoof });
 
   return (
     <div
       ref={mountRef}
       style={{
-        width: "100%",
-        height: "100%",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        overflow: "hidden",
-        cursor: "grab"
+        width: "100%", height: "100%", position: "absolute",
+        top: 0, left: 0, overflow: "hidden", cursor: "grab"
       }}
     />
   );

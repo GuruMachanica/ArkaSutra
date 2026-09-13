@@ -1,15 +1,25 @@
-import polygon3dmodule
-import markup3dmodule
 try:
-    import irr
+    from Backend.gis.geometry import polygon3dmodule, markup3dmodule
 except ImportError:
-    irr = None
+    try:
+        from gis.geometry import polygon3dmodule, markup3dmodule
+    except ImportError:
+        import polygon3dmodule, markup3dmodule
 
 try:
-    from sunmap_tof import TOF_DATA, irr_from_tof
+    from .irr import yearly_total_irr
 except ImportError:
+    try:
+        from irr import yearly_total_irr
+    except ImportError:
+        yearly_total_irr = None
+
+try:
     from .sunmap_tof import TOF_DATA, irr_from_tof
+except ImportError:
+    from sunmap_tof import TOF_DATA, irr_from_tof
 
+ns_citygml = "http://www.opengis.net/citygml/2.0"
 ns_bldg = "http://www.opengis.net/citygml/building/2.0"
 ns_gml = "http://www.opengis.net/gml"
 
@@ -50,8 +60,8 @@ class Building(object):
 
             if TOF_DATA["loaded"]:
                 irradiation = irr_from_tof(tilt, az)
-            elif irr:
-                irradiation = irr.yearly_total_irr(place, az, tilt)
+            elif yearly_total_irr:
+                irradiation = yearly_total_irr(place, az, tilt)
             else:
                 irradiation = 1000.0
 

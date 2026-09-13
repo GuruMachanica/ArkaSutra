@@ -8,7 +8,7 @@ try:
         SolarPositionResponse,
     )
     from Backend.core.physics import calculate_solar_physics, calculate_solar_position_core
-    from Backend.satellite_service import fetch_satellite_solar_telemetry
+    from Backend.services.satellite import fetch_satellite_solar_telemetry
 except ImportError:
     from core.schemas import (
         SolarCalculationRequest,
@@ -17,7 +17,7 @@ except ImportError:
         SolarPositionResponse,
     )
     from core.physics import calculate_solar_physics, calculate_solar_position_core
-    from satellite_service import fetch_satellite_solar_telemetry
+    from services.satellite import fetch_satellite_solar_telemetry
 
 router = APIRouter(prefix="/api/solar", tags=["Solar Physics"])
 

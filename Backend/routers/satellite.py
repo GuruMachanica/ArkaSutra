@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Query
 
 try:
-    from Backend.satellite_service import fetch_satellite_solar_telemetry, geocode_location
+    from Backend.services.satellite import fetch_satellite_solar_telemetry, geocode_location
 except ImportError:
-    from satellite_service import fetch_satellite_solar_telemetry, geocode_location
+    from services.satellite import fetch_satellite_solar_telemetry, geocode_location
 
 router = APIRouter(prefix="/api/satellite", tags=["Satellite Telemetry"])
 

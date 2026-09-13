@@ -1,6 +1,10 @@
 import math
 import copy
-import markup3dmodule
+
+try:
+    import markup3dmodule
+except ImportError:
+    from . import markup3dmodule
 
 try:
     from geom_math import (
