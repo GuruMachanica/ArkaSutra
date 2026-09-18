@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""SunMap Data Converter: Converts CityGML solar analysis to JSON for 3D visualization."""
+"""ArkaSutra Data Converter: Converts CityGML solar analysis to JSON for 3D visualization."""
 
 import os
 import json

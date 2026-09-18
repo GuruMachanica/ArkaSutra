@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: sunmap-unified
+    name: arkasutra-unified
     env: docker
     dockerfilePath: ./Dockerfile
     plan: free
@@ -8,7 +8,7 @@ services:
     healthCheckPath: /api/health
 
   - type: web
-    name: sunmap-frontend
+    name: arkasutra-frontend
     env: static
     buildCommand: npm --prefix Frontend install && npm --prefix Frontend run build
     staticPublishPath: ./Frontend/dist
@@ -19,7 +19,7 @@ services:
     autoDeploy: true
 
   - type: web
-    name: sunmap-backend
+    name: arkasutra-backend
     env: python
     buildCommand: pip install -r Backend/requirements.txt
     startCommand: uvicorn Backend.server:app --host 0.0.0.0 --port $PORT

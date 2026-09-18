@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""SunMap — 3D Spatial Solar Energy & Rooftop Intelligence Engine"""
+"""ArkaSutra - 3D Spatial Solar Energy & Autonomous Rooftop Intelligence Engine"""
 
 import os
 import sys
@@ -28,7 +28,7 @@ except ImportError:
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-app = FastAPI(title="SunMap Spatial Solar Engine API", version="2.1.0", docs_url="/docs", redoc_url="/redoc")
+app = FastAPI(title="ArkaSutra Spatial Solar Engine API", version="2.1.0", docs_url="/docs", redoc_url="/redoc")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 @app.middleware("http")
@@ -55,7 +55,7 @@ FRONTEND_DIST_DIR = os.path.join(ROOT_DIR, "Frontend", "dist")
 @app.get("/api/health", tags=["System"])
 def get_health():
     return {
-        "status": "healthy", "service": "SunMap Spatial Solar Engine",
+        "status": "healthy", "service": "ArkaSutra Spatial Solar Engine",
         "version": "2.1.0", "timestamp": datetime.now(timezone.utc).isoformat(),
         "single_deployment_mode": os.path.exists(os.path.join(FRONTEND_DIST_DIR, "index.html"))
     }
@@ -78,7 +78,7 @@ if os.path.isdir(FRONTEND_DIST_DIR):
         raise HTTPException(status_code=404, detail="Frontend build index.html not found.")
 
 def main():
-    parser = argparse.ArgumentParser(description="SunMap FastAPI Spatial Server")
+    parser = argparse.ArgumentParser(description="ArkaSutra FastAPI Spatial Server")
     parser.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8000)))
     parser.add_argument("--host", type=str, default="0.0.0.0")
     parser.add_argument("--reload", action="store_true")

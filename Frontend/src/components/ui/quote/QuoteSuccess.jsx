@@ -39,7 +39,7 @@ export default function QuoteSuccess({ formData, onClose }) {
       </div>
 
       <Button variant="primary" style={{ width: '100%', justifyContent: 'center' }} onClick={onClose}>
-        Done & Return to SunMap
+        Done & Return to ArkaSutra
       </Button>
     </div>
   );

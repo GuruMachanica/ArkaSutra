@@ -29,7 +29,7 @@ async def get_city_buildings(
     if len(buildings) < 4:
         # If OSM has sparse coverage in this zone or was rate-limited, synthesize calibrated city blocks
         buildings = generate_city_fallback_buildings(latitude, longitude, count=16)
-        source = "SunMap High-Precision Urban Synthesis (Coordinate-Calibrated)"
+        source = "ArkaSutra High-Precision Urban Synthesis (Coordinate-Calibrated)"
 
     buildings = sorted(buildings, key=lambda b: -b["roof_area_m2"])[:30]
     total_roof_area = round(sum(b["roof_area_m2"] for b in buildings), 1)

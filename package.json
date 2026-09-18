@@ -1,8 +1,8 @@
 {
-  "name": "sunmap-ecosystem",
+  "name": "arkasutra-ecosystem",
   "version": "2.0.0",
   "private": true,
-  "description": "SunMap - Smart 3D Spatial Solar Energy & Rooftop Intelligence Engine",
+  "description": "ArkaSutra - 3D Spatial Solar Energy & Autonomous Rooftop Intelligence Engine",
   "scripts": {
     "start": "python Backend/server.py",
     "dev": "npm --prefix Frontend run dev",

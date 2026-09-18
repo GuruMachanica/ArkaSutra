@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Realistic Building Data Generator for SunMap"""
+"""Realistic Building Data Generator for ArkaSutra"""
 
 import json
 import random
@@ -69,7 +69,7 @@ class RealisticBuildingGenerator:
         return filename
 
 def main():
-    print("Generating Realistic Building Data for SunMap...")
+    print("Generating Realistic Building Data for ArkaSutra...")
     gen = RealisticBuildingGenerator()
     gen.generate_realistic_buildings(num_buildings=20)
     saved = gen.save_to_json('realistic_buildings.json')

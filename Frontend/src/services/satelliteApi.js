@@ -1,5 +1,5 @@
 /**
- * SunMap — Satellite Telemetry & Geocoding API Client Facade
+ * ArkaSutra — Satellite Telemetry & Geocoding API Client Facade
  */
 
 export { fetchLiveSatelliteData } from "./satelliteSolar";

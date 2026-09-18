@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-SunMap — 3D Spatial Solar Energy & Rooftop Intelligence Engine
+ArkaSutra — 3D Spatial Solar Energy & Rooftop Intelligence Engine
 Calculates yearly solar irradiation of roof surfaces from CityGML data.
 """
 

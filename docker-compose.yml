@@ -5,7 +5,7 @@ services:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
-    container_name: sunmap-frontend
+    container_name: arkasutra-frontend
     restart: always
     ports:
       - "5175:80"
@@ -15,13 +15,13 @@ services:
     depends_on:
       - backend
     networks:
-      - sunmap-network
+      - arkasutra-network
 
   backend:
     build:
       context: ./Backend
       dockerfile: Dockerfile
-    container_name: sunmap-backend
+    container_name: arkasutra-backend
     restart: always
     ports:
       - "8000:8000"
@@ -29,8 +29,8 @@ services:
       - PYTHONUNBUFFERED=1
       - PORT=8000
     networks:
-      - sunmap-network
+      - arkasutra-network
 
 networks:
-  sunmap-network:
+  arkasutra-network:
     driver: bridge

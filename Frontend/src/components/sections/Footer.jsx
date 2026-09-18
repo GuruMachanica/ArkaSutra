@@ -14,7 +14,7 @@ export default function Footer() {
               <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: 'linear-gradient(135deg, #f59e0b, #ea580c)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
                 <Sun size={20} />
               </div>
-              <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>sunmap<span style={{ color: '#f59e0b' }}>.</span></span>
+              <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>arkasutra<span style={{ color: '#f59e0b' }}>.</span></span>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: 1.6, margin: 0 }}>
               Intelligent 3D spatial solar irradiance modeling, LOD2 CityGML rooftop normal extraction, and ray-traced shadow occlusion engine developed for urban photovoltaic assessment.
@@ -23,7 +23,7 @@ export default function Footer() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap' }}>
             <a
-              href="https://github.com/GuruMachanica/SunMap" target="_blank" rel="noreferrer"
+              href="https://github.com/GuruMachanica/ArkaSutra" target="_blank" rel="noreferrer"
               style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', borderRadius: '12px', background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#f8fafc', textDecoration: 'none', fontSize: '0.82rem', fontWeight: 600 }}
             >
               <Github size={16} /><span>Source Repository</span>
@@ -39,7 +39,7 @@ export default function Footer() {
 
         <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-            © {new Date().getFullYear()} SunMap • Team Ironlogic. All rights reserved. Proprietary - Strict Private Use &amp; Inspection License.
+            © {new Date().getFullYear()} ArkaSutra • Team Ironlogic. All rights reserved. Proprietary - Strict Private Use &amp; Inspection License.
           </div>
           <div style={{ fontSize: '0.78rem', color: '#64748b', fontFamily: 'monospace' }}>Inquiries: ironlogic@zohomail.in</div>
         </div>

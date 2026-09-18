@@ -3,7 +3,7 @@ version: '3.8'
 services:
   frontend-dev:
     image: node:20-alpine
-    container_name: sunmap-frontend-dev
+    container_name: arkasutra-frontend-dev
     working_dir: /app
     volumes:
       - ./Frontend:/app
@@ -14,13 +14,13 @@ services:
     environment:
       - NODE_ENV=development
     networks:
-      - sunmap-dev-network
+      - arkasutra-dev-network
 
   backend-dev:
     build:
       context: ./Backend
       dockerfile: Dockerfile
-    container_name: sunmap-backend-dev
+    container_name: arkasutra-backend-dev
     volumes:
       - ./Backend:/app
     ports:
@@ -29,8 +29,8 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     networks:
-      - sunmap-dev-network
+      - arkasutra-dev-network
 
 networks:
-  sunmap-dev-network:
+  arkasutra-dev-network:
     driver: bridge

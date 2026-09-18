@@ -1,6 +1,6 @@
-# SunMap Engineering Documentation and Architecture Reference
+# ArkaSutra Engineering Documentation and Architecture Reference
 
-This directory contains research specifications, solar transposition physics, autonomous agentic architecture, diurnal irradiance benchmarks, presentation materials, and system references for SunMap.
+This directory contains research specifications, solar transposition physics, autonomous agentic architecture, diurnal irradiance benchmarks, presentation materials, and system references for ArkaSutra.
 
 ---
 
@@ -21,7 +21,7 @@ This directory contains research specifications, solar transposition physics, au
 
 ## 1. Physical Principles and Mathematical Derivations
 
-SunMap models solar irradiance via a multi-stage physical transposition pipeline grounded in NREL PVLib standards and Perez clear-sky transposition algorithms.
+ArkaSutra models solar irradiance via a multi-stage physical transposition pipeline grounded in NREL PVLib standards and Perez clear-sky transposition algorithms.
 
 ### A. Celestial Sun Position Calculations
 The solar declination delta for day of year n in [1, 365]:
@@ -36,7 +36,7 @@ The solar zenith angle is theta_z = 90 deg - alpha.
 
 Solar azimuth angle A (where 180 deg is South):
 
-$$\tan(A) = \frac{-\cos(\delta)\sin(H)}{\sin(\delta)\cos(\phi) - \cos(\delta)\sin(\phi)\cos(H)}$$
+$$\tan(A) = \frac{-\cos(\delta)\sin(H)}{\sin(\delta)\cos(\phi) - \sin(\delta)\sin(\phi)\cos(H)}$$
 
 ### B. Optical Relative Airmass (m)
 Atmospheric attenuation is computed using the Kasten-Young airmass formulation:
@@ -63,7 +63,7 @@ $$I_{\text{poa}} = I_{\text{beam}} + I_{\text{diffuse, sky}} + I_{\text{ground, 
 
 ## 2. Autonomous Solar Engineering Agent Architecture
 
-SunMap integrates an autonomous goal-driven agent engine:
+ArkaSutra integrates an autonomous goal-driven agent engine:
 
 * Perception:
   * Ingests spatial footprints, LiDAR heights, roof orientations, and live satellite telemetry.
@@ -93,7 +93,7 @@ The Python GIS parser processes OGC CityGML 2.0/3.0 LOD2 models:
 
 ## 4. OpenStreetMap 3D Dynamic Ingestion
 
-To eliminate mandatory manual file uploads, SunMap streams real-world building polygons directly from OpenStreetMap Overpass API:
+To eliminate mandatory manual file uploads, ArkaSutra streams real-world building polygons directly from OpenStreetMap Overpass API:
 * Overpass QL Query: Fetches building ways and relations within a specified radius (e.g. 200m) around any global coordinate.
 * Geometry Parser: Reprojects WGS84 coordinates into metric Cartesian meters [x, z] relative to the scene center.
 * Resilient Fallback: If external Overpass gateways experience rate limiting or timeouts, a coordinate-calibrated spatial synthesizer generates deterministic building density matching local urban zoning.
@@ -149,7 +149,7 @@ Implemented in Three.js:
 
 ## 9. Single-Container Deployment Pipeline
 
-SunMap supports a unified full-stack single deployment using the multi-stage Dockerfile:
+ArkaSutra supports a unified full-stack single deployment using the multi-stage Dockerfile:
 
 ```
 +-------------------------------------------------------------+
@@ -166,8 +166,8 @@ SunMap supports a unified full-stack single deployment using the multi-stage Doc
 
 ### Run Locally:
 ```bash
-docker build -t sunmap-unified:latest .
-docker run -p 8000:8000 sunmap-unified:latest
+docker build -t arkasutra-unified:latest .
+docker run -p 8000:8000 arkasutra-unified:latest
 ```
 
 ---

@@ -19,7 +19,7 @@ export default function NavBrand({ onNavigateHome }) {
       }}>
         <Sun size={22} color="#ffffff" />
       </div>
-      <span>sunmap<span style={{ color: '#f59e0b' }}>.</span></span>
+      <span>arkasutra<span style={{ color: '#f59e0b' }}>.</span></span>
     </button>
   );
 }

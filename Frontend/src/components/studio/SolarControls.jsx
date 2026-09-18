@@ -27,7 +27,7 @@ export default function SolarControls(props) {
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `SunMap_Hourly_Irradiance_${season}.csv`;
+    link.download = `ArkaSutra_Hourly_Irradiance_${season}.csv`;
     link.click();
   };
 

@@ -18,7 +18,7 @@ async def fetch_osm_buildings(lat: float, lon: float, radius: int = 180) -> List
     """
     url = "https://overpass-api.de/api/interpreter"
     headers = {
-        "User-Agent": "SunMap-3D-Solar-Engine/2.1 (https://github.com/GuruMachanica/SunMap)"
+        "User-Agent": "ArkaSutra-3D-Solar-Engine/2.1 (https://github.com/GuruMachanica/ArkaSutra)"
     }
 
     try:

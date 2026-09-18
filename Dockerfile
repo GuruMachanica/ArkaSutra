@@ -1,5 +1,5 @@
 # =============================================================================
-# SunMap Unified Single-Deployment Dockerfile
+# ArkaSutra Unified Single-Deployment Dockerfile
 # Stage 1: Build React 18 / Three.js JavaScript Frontend
 # Stage 2: Serve FastAPI REST Engine + Static WebGL Studio on a Single Port
 # =============================================================================

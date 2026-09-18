@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Blender Photorealistic PBR House Exporter for SunMap"""
+"""Blender Photorealistic PBR House Exporter for ArkaSutra"""
 
 import os
 

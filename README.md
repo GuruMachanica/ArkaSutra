@@ -1,4 +1,4 @@
-# SunMap - 3D Spatial Solar Energy & Rooftop Intelligence Engine
+# ArkaSutra - 3D Spatial Solar Energy & Autonomous Rooftop Intelligence Engine
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-141414?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Three.js](https://img.shields.io/badge/Three.js-r153+-141414?style=for-the-badge&logo=threedotjs&logoColor=white)](https://threejs.org/)
@@ -7,11 +7,12 @@
 [![Docker](https://img.shields.io/badge/Docker-Unified_Enabled-141414?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-Proprietary-141414?style=for-the-badge)](LICENSE)
 
-SunMap is an enterprise-grade spatial intelligence and 3D simulation platform engineered for urban photovoltaic (PV) yield prediction, autonomous rooftop engineering, CityGML LOD2 normal extraction, real-time WebGL shadow raycasting, live satellite weather assimilation, and 25-year bankable financial forecasting.
+ArkaSutra is an enterprise-grade spatial intelligence and 3D simulation platform engineered for urban photovoltaic (PV) yield prediction, autonomous rooftop engineering, CityGML LOD2 normal extraction, real-time WebGL shadow raycasting, live satellite weather assimilation, and 25-year bankable financial forecasting.
 
-* Repository: https://github.com/GuruMachanica/SunMap
+* Repository: https://github.com/GuruMachanica/ArkaSutra
 * Unified Application Port: http://localhost:8000/
 * FastAPI Interactive Docs: http://localhost:8000/docs
+* Ecosystem Suite: ArthaRaksha, VaakKavach, AnveshakSutra, ArkaSutra
 * Hackathon Recognition: CodeStorm'25 Project
 
 ---
@@ -54,7 +55,7 @@ SunMap is an enterprise-grade spatial intelligence and 3D simulation platform en
 
 ```
 +-----------------------------------------------------------------------------------+
-|                                 SUNMAP ECOSYSTEM                                  |
+|                               ARKASUTRA ECOSYSTEM                                 |
 +-----------------------------------------------------------------------------------+
                                          |
                  +-----------------------+-----------------------+
@@ -153,7 +154,7 @@ sequenceDiagram
 Every file in the repository satisfies the rule of maximum 100 lines of code:
 
 ```
-SunMap/
+ArkaSutra/
 |-- Backend/
 |   |-- core/                     # Schemas and shared physics definitions
 |   |-- routers/                  # API routes (agent, city_map, satellite, solar, topologies)
@@ -214,10 +215,10 @@ The FastAPI backend exposes interactive OpenAPI documentation at `/docs` and `/r
 
 ```bash
 # Build unified multi-stage container
-docker build -t sunmap-unified:latest .
+docker build -t arkasutra-unified:latest .
 
 # Run on port 8000
-docker run -p 8000:8000 sunmap-unified:latest
+docker run -p 8000:8000 arkasutra-unified:latest
 ```
 
 * Live 3D Studio and Web Application: http://localhost:8000/
@@ -243,7 +244,7 @@ cd Frontend && npm install && npm run dev
 
 ### 3. Netlify Deployment
 
-SunMap is preconfigured for continuous deployment on Netlify via root netlify.toml:
+ArkaSutra is preconfigured for continuous deployment on Netlify via root netlify.toml:
 * Base Directory: `Frontend`
 * Build Command: `npm run build`
 * Publish Directory: `dist`
@@ -251,16 +252,24 @@ SunMap is preconfigured for continuous deployment on Netlify via root netlify.to
 
 ---
 
-## Authors and Team Ironlogic
+## Sole Engineer & Architecture Attribution
 
-Team Ironlogic (CodeStorm'25 Project):
+- **Sole Architect & Lead Engineer**: **Mohammad Huzaifa** ([@GuruMachanica](https://github.com/GuruMachanica))
+- **Primary Repository**: [https://github.com/GuruMachanica/ArkaSutra](https://github.com/GuruMachanica/ArkaSutra)
+- **Official Contact**: [ironlogic@zohomail.in](mailto:ironlogic@zohomail.in)
 
-* Mohammad Huzaifa (Lead Architecture and Spatial Simulation) - https://github.com/GuruMachanica
-* Mohnish Narayan Gupta (Frontend Engineering and 3D Visualization) - https://github.com/mohnishgupta602-netizen
-* Isnia Izhar (Research and Dataset Modeling)
-* Ashutosh Mishra (Spatial Algorithms and Validation)
-
-Official Contact: ironlogic@zohomail.in
+### Provenance, Heritage & Upgradation History
+> **Notice of Project Origin & Evolution**:  
+> **ArkaSutra (अर्कसूत्र)** is an advanced evolution, complete architectural overhaul, and upgraded enterprise edition of the original project:  
+> **Original Project Reference**: SunMap (CodeStorm'25 Project)
+>
+> The original prototype was created as a collaborative team project under **Team Ironlogic** (Mohammad Huzaifa, Mohnish Narayan Gupta, Isnia Izhar, and Ashutosh Mishra). Following the team project, **Mohammad Huzaifa** independently branched, redesigned, upgraded, and transformed the codebase into this autonomous, sovereign 3D spatial solar intelligence and rooftop engineering platform ([https://github.com/GuruMachanica/ArkaSutra](https://github.com/GuruMachanica/ArkaSutra)) as the sole lead engineer:
+> 1. **Autonomous Solar AI Engineering Agent**: Designed a goal-oriented cognitive engine that decomposes objectives across Perception, Reasoning, Optimization, and Action phases to autonomously command the 3D digital twin, optimize panel tilt pitch, and mitigate seasonal shadow occlusion.
+> 2. **Zero-Upload Global 3D City Maps**: Engineered real-world building polygon streaming worldwide via OpenStreetMap (OSM) Overpass API with a coordinate-calibrated spatial synthesizer fallback ensuring zero downtime.
+> 3. **Live Satellite Weather Assimilation**: Ingested real-time Copernicus and ERA5 Global Horizontal Irradiance (GHI), ambient temperature, cloud derate factors, and wind velocity into live telemetry calculations.
+> 4. **Perez Clear-Sky Transposition & Raycast Physics**: Implemented high-precision transposition physics benchmarked against NREL PVLib standards alongside 60 FPS Three.js GPU shadow raycasting across 8,760 annual vectors.
+> 5. **Bankable Financial & Carbon Abatement Engine**: Built real-time LCOE, NPV, 25-year lifecycle yield forecasting, and metric tons of avoided carbon emissions calculation.
+> 6. **Strict Modular Architecture with LOC Governance**: Decomposed the entire multi-tier system into decoupled micro-modules where 100% of codebase files strictly adhere to a maximum limit of 100 lines of code.
 
 ---
 

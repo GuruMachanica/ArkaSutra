@@ -13,7 +13,7 @@ export default function TechGrid() {
             Next-Gen Spatial Solar Engineering Stack
           </h2>
           <p style={{ fontSize: '0.95rem', color: '#94a3b8', lineHeight: 1.6 }}>
-            SunMap combines advanced geospatial polygon parsing, astronomical algorithms, and real-time WebGL ray-tracing for urban solar feasibility.
+            ArkaSutra combines advanced geospatial polygon parsing, astronomical algorithms, and real-time WebGL ray-tracing for urban solar feasibility.
           </p>
         </div>
 
