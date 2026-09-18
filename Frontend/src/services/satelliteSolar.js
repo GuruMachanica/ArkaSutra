@@ -1,3 +1,5 @@
+import { apiUrl } from "./apiConfig";
+
 /**
  * Solar radiation & weather telemetry fetcher via Open-Meteo & Copernicus ERA5
  */
@@ -6,9 +8,9 @@ export async function fetchLiveSatelliteData(latitude, longitude) {
   const roundLat = Number(latitude).toFixed(4);
   const roundLon = Number(longitude).toFixed(4);
 
-  // 1. Try local FastAPI backend route
+  // 1. Try FastAPI backend route
   try {
-    const res = await fetch(`/api/satellite/live-solar?latitude=${roundLat}&longitude=${roundLon}`);
+    const res = await fetch(apiUrl(`/api/satellite/live-solar?latitude=${roundLat}&longitude=${roundLon}`));
     if (res.ok) return await res.json();
   } catch (err) {
     // Backend offline fallback below

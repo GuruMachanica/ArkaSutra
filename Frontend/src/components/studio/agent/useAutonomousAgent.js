@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { apiUrl } from "../../../services/apiConfig";
 
 export function useAutonomousAgent({ buildings = [], latitude = 35.68, season = "summer", setPanelTilt, setShadingMode, onSelectRoof }) {
   const [isRunning, setIsRunning] = useState(false);
@@ -12,7 +13,7 @@ export function useAutonomousAgent({ buildings = [], latitude = 35.68, season = 
     setThoughts([{ phase: "perception", title: "Goal Received", detail: goalPrompt }]);
 
     try {
-      const res = await fetch("/api/agent/dispatch", {
+      const res = await fetch(apiUrl("/api/agent/dispatch"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ goal: goalPrompt, latitude, season, buildings: buildings || [] })

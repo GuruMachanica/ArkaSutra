@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { apiUrl } from "../../services/apiConfig";
 
 export function useCityMapLoader(activeCoords) {
   const [cityData, setCityData] = useState(null);
@@ -12,7 +13,7 @@ export function useCityMapLoader(activeCoords) {
 
     const fetchCity = async () => {
       try {
-        const url = `/api/city/buildings?latitude=${activeCoords.lat}&longitude=${activeCoords.lon}&radius=200`;
+        const url = apiUrl(`/api/city/buildings?latitude=${activeCoords.lat}&longitude=${activeCoords.lon}&radius=200`);
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();

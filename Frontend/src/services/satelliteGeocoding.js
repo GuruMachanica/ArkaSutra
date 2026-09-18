@@ -1,3 +1,5 @@
+import { apiUrl } from "./apiConfig";
+
 /**
  * Zero-Authentication Global Geocoding Client via Open-Meteo
  */
@@ -6,9 +8,9 @@ export async function searchGlobalLocations(query) {
   if (!query || query.trim().length < 2) return [];
   const cleanQ = query.trim();
 
-  // 1. Try local FastAPI backend route
+  // 1. Try FastAPI backend route
   try {
-    const res = await fetch(`/api/satellite/geocode?query=${encodeURIComponent(cleanQ)}`);
+    const res = await fetch(apiUrl(`/api/satellite/geocode?query=${encodeURIComponent(cleanQ)}`));
     if (res.ok) {
       const data = await res.json();
       if (data && data.results && data.results.length > 0) return data.results;
