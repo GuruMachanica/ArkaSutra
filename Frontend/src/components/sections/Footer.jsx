@@ -39,9 +39,9 @@ export default function Footer() {
 
         <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-            © {new Date().getFullYear()} ArkaSutra • Team Ironlogic. All rights reserved. Proprietary - Strict Private Use &amp; Inspection License.
+            © {new Date().getFullYear()} ArkaSutra • Mohammad Huzaifa (@GuruMachanica). Upgraded from Team IronLogic (CodeStorm'25). All rights reserved.
           </div>
-          <div style={{ fontSize: '0.78rem', color: '#64748b', fontFamily: 'monospace' }}>Inquiries: ironlogic@zohomail.in</div>
+          <div style={{ fontSize: '0.78rem', color: '#64748b', fontFamily: 'monospace' }}>Architect: Mohammad Huzaifa • Inquiries: mdhuzaifa00786@gmail.com</div>
         </div>
       </div>
     </footer>

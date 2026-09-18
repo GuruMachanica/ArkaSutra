@@ -10,6 +10,7 @@
 ArkaSutra is an enterprise-grade spatial intelligence and 3D simulation platform engineered for urban photovoltaic (PV) yield prediction, autonomous rooftop engineering, CityGML LOD2 normal extraction, real-time WebGL shadow raycasting, live satellite weather assimilation, and 25-year bankable financial forecasting.
 
 * Repository: https://github.com/GuruMachanica/ArkaSutra
+* Live Production Studio: https://arkasutra.netlify.app/
 * Unified Application Port: http://localhost:8000/
 * FastAPI Interactive Docs: http://localhost:8000/docs
 * Ecosystem Suite: ArthaRaksha, VaakKavach, AnveshakSutra, ArkaSutra
@@ -256,14 +257,15 @@ ArkaSutra is preconfigured for continuous deployment on Netlify via root netlify
 
 - **Sole Architect & Lead Engineer**: **Mohammad Huzaifa** ([@GuruMachanica](https://github.com/GuruMachanica))
 - **Primary Repository**: [https://github.com/GuruMachanica/ArkaSutra](https://github.com/GuruMachanica/ArkaSutra)
-- **Official Contact**: [ironlogic@zohomail.in](mailto:ironlogic@zohomail.in)
+- **Live Deployment**: [https://arkasutra.netlify.app/](https://arkasutra.netlify.app/)
+- **Official Contact**: [mdhuzaifa00786@gmail.com](mailto:mdhuzaifa00786@gmail.com) | [ironlogic@zohomail.in](mailto:ironlogic@zohomail.in)
 
 ### Provenance, Heritage & Upgradation History
 > **Notice of Project Origin & Evolution**:  
 > **ArkaSutra (अर्कसूत्र)** is an advanced evolution, complete architectural overhaul, and upgraded enterprise edition of the original project:  
-> **Original Project Reference**: SunMap (CodeStorm'25 Project)
+> **Original Project Reference**: [SunMAP_final](https://github.com/Ashu-1126/SunMAP_final) (CodeStorm'25 Project)
 >
-> The original prototype was created as a collaborative team project under **Team Ironlogic** (Mohammad Huzaifa, Mohnish Narayan Gupta, Isnia Izhar, and Ashutosh Mishra). Following the team project, **Mohammad Huzaifa** independently branched, redesigned, upgraded, and transformed the codebase into this autonomous, sovereign 3D spatial solar intelligence and rooftop engineering platform ([https://github.com/GuruMachanica/ArkaSutra](https://github.com/GuruMachanica/ArkaSutra)) as the sole lead engineer:
+> The original prototype was created as a collaborative team project under **Team IronLogic** (Mohammad Huzaifa, Mohnish Narayan Gupta, Isnia Izhar, and Ashutosh Mishra). As a core developer of the original project development team, **Mohammad Huzaifa** independently branched, redesigned, upgraded, and transformed the codebase into this autonomous, sovereign 3D spatial solar intelligence and rooftop engineering platform ([https://github.com/GuruMachanica/ArkaSutra](https://github.com/GuruMachanica/ArkaSutra)) as the sole lead engineer:
 > 1. **Autonomous Solar AI Engineering Agent**: Designed a goal-oriented cognitive engine that decomposes objectives across Perception, Reasoning, Optimization, and Action phases to autonomously command the 3D digital twin, optimize panel tilt pitch, and mitigate seasonal shadow occlusion.
 > 2. **Zero-Upload Global 3D City Maps**: Engineered real-world building polygon streaming worldwide via OpenStreetMap (OSM) Overpass API with a coordinate-calibrated spatial synthesizer fallback ensuring zero downtime.
 > 3. **Live Satellite Weather Assimilation**: Ingested real-time Copernicus and ERA5 Global Horizontal Irradiance (GHI), ambient temperature, cloud derate factors, and wind velocity into live telemetry calculations.
